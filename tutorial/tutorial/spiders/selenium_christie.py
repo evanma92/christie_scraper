@@ -1,10 +1,10 @@
 from selenium import webdriver
 import time
+from user_to_change import chrome_driver, url
 
-path_to_chromedriver = '/Users/evanma/Downloads/chromedriver' # change path as needed
+path_to_chromedriver = chrome_driver # change path as needed
 browser = webdriver.Chrome(executable_path = path_to_chromedriver)
 
-url = 'http://www.christies.com/salelanding/index.aspx?intsaleid=26796&saletitle='
 browser.get(url)
 
 # ensures that all the lots are loaded
