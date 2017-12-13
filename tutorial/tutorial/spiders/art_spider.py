@@ -15,6 +15,15 @@ class ChristiesItem(Item):
     low_estimate = Field()
     high_estimate = Field()
 
+    medium = Field()
+    size = Field()
+    year_painted = Field()
+
+    provenance = Field()
+    literature = Field()
+    exhibited = Field()
+    special_notice = Field()
+
 
 class ChristiesSpider(Spider):
     name = 'christies'
@@ -36,4 +45,17 @@ class ChristiesSpider(Spider):
         prices = response.css("span#main_center_0_lblPriceEstimatedPrimary::text").extract()[0].split(' - ')
         item['low_estimate'] = prices[0]
         item['high_estimate'] = prices[1]
+
+        description = response.css("span#main_center_0_lblLotDescription::text").extract()
+        item['medium'] = description[-4]
+        item['size'] = description[-3]
+        item['year_painted'] = description[-2]
+
+        item['provenance'] = response.css("p#main_center_0_lblLotProvenance::text").extract()
+        item['literature'] = response.css("p#main_center_0_lblLiterature::text").extract()
+        item['exhibited'] = response.css("p#main_center_0_lblExhibited::text").extract()
+        item['special_notice'] = response.css("p#main_center_0_lblSpecialNotice::text").extract()
+
+
+
         return item
